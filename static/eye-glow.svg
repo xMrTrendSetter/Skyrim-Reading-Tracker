@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <filter id="golden-eyes" x="-15%" y="-10%" width="130%" height="120%" color-interpolation-filters="sRGB">
+    <!-- Extract bright iris pixels. Dark pupils and flesh produce no emission;
+         the mask follows the rendered frame, so it closes with each eyelid. -->
+    <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  .2126 .7152 .0722 0 0" result="luminance"/>
+    <feComponentTransfer in="luminance" result="iris-mask">
+      <feFuncA type="linear" slope="4" intercept="-1.7"/>
+    </feComponentTransfer>
+    <feFlood flood-color="#d3e98c" flood-opacity=".75" result="gold"/>
+    <feComposite in="gold" in2="iris-mask" operator="in" result="emission"/>
+    <feGaussianBlur in="emission" stdDeviation="7" result="halo"/>
+    <feBlend in="SourceGraphic" in2="halo" mode="screen" result="bloom"/>
+    <feBlend in="bloom" in2="emission" mode="screen"/>
+  </filter>
+</svg>

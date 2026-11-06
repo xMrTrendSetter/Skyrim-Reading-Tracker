@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <filter id="moss" color-interpolation-filters="sRGB">
+    <!-- Map the painted relief to ink-black, moss, olive and pale yellow-green.
+         Zero offsets preserve the black recesses and infinity pupils. -->
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues="0 .16 .32 .56 .84"/>
+      <feFuncG type="table" tableValues="0 .26 .48 .70 .91"/>
+      <feFuncB type="table" tableValues="0 .06 .10 .26 .58"/>
+    </feComponentTransfer>
+  </filter>
+</svg>

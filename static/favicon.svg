@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Olho de Apocrypha</title>
+  <defs>
+    <radialGradient id="iris">
+      <stop stop-color="#f1efac"/>
+      <stop offset=".55" stop-color="#c3d96c"/>
+      <stop offset="1" stop-color="#627b2e"/>
+    </radialGradient>
+  </defs>
+  <path d="M5 32Q32 3 59 32Q32 61 5 32Z" fill="#29391a" stroke="#849c42" stroke-width="2"/>
+  <path d="M8 32Q32 12 56 32Q32 52 8 32Z" fill="url(#iris)"/>
+  <path d="M18 32C18 21 27 19 32 27C37 19 46 21 46 32C46 43 37 45 32 37C27 45 18 43 18 32Z" fill="#050905"/>
+  <path d="M10 23Q32 6 54 23M10 41Q32 58 54 41" fill="none" stroke="#becf77" stroke-width="1.5"/>
+  <ellipse cx="25" cy="25" rx="3" ry="1.5" fill="#fff5c6"/>
+</svg>

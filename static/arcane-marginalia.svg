@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" fill="none" stroke="#382418">
+  <!-- Geometric marginal seals only. No invented alphabet or purported Daedric text. -->
+  <defs>
+    <g id="seal">
+      <circle r="115"/><circle r="106" stroke-width="3"/><circle r="91"/>
+      <circle r="73" stroke-dasharray="2 7" stroke-width="12"/>
+      <path d="M0-90 78 45H-78ZM0 90 78-45H-78ZM-101 0H101M0-101V101"/>
+      <circle r="43"/><circle r="22"/>
+      <path d="M-42 0Q0-38 42 0Q0 38-42 0Z"/>
+    </g>
+  </defs>
+  <path d="M22 27H878V1173H22Z M34 39H866V1161H34Z" stroke-width="1.2"/>
+  <path d="M56 64H844V1136H56Z" stroke-dasharray="2 10"/>
+  <g opacity=".75"><use href="#seal" transform="translate(105 290) scale(.8)"/><use href="#seal" transform="translate(802 925) scale(.9) rotate(18)"/></g>
+  <path d="M448 18Q423 600 448 1182M456 18Q481 600 456 1182" opacity=".35"/>
+  <path d="m32 87 12-18 12 18-12 18ZM32 1120l12-18 12 18-12 18ZM844 87l12-18 12 18-12 18ZM844 1120l12-18 12 18-12 18Z"/>
+  <path d="M91 184Q200 136 271 183M610 1000Q741 968 825 1018" stroke-width="2"/>
+</svg>

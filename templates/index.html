@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#060b04">
+    <title>Skyrim Reading Tracker — Apocrypha</title>
+    <link rel="icon" href="/static/favicon.svg?v=2" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="/static/style.css?v=11">
+    <script defer src="/static/apocrypha.js?v=11"></script>
+    <script defer src="/static/library.js?v=7"></script>
+</head>
+<body>
+    <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+            <radialGradient id="iris"><stop stop-color="#fff8b9"/><stop offset=".48" stop-color="#e4c343"/><stop offset=".8" stop-color="#8f6f19"/><stop offset="1" stop-color="#242a0c"/></radialGradient>
+            <linearGradient id="skin" x2="0" y2="1"><stop stop-color="#a0a45a"/><stop offset=".3" stop-color="#354222"/><stop offset=".65" stop-color="#111a0b"/><stop offset="1" stop-color="#727737"/></linearGradient>
+            <symbol id="eye-open" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="30" fill="#080e06" stroke="#b79c36" stroke-width="1.5"/>
+                <path d="M5 32Q32 5 59 32Q32 59 5 32Z" fill="url(#skin)" stroke="#737c34"/>
+                <path d="M7 32Q32 13 57 32Q32 51 7 32Z" fill="url(#iris)" stroke="#c2ac4f"/>
+                <path d="M19 32C19 20 28 20 32 28C36 20 46 20 46 32C46 43 36 43 32 36C28 43 19 43 19 32Z" fill="#030601" stroke="#fbe17a"/>
+                <ellipse cx="26" cy="25" rx="3" ry="1.7" fill="#fff6bf"/>
+                <path d="M8 23Q32 6 56 23M8 41Q32 58 56 41" fill="none" stroke="#737b3b" stroke-width="2"/>
+            </symbol>
+            <symbol id="eye-closed" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="30" fill="#080e06" stroke="#b79c36" stroke-width="1.5"/>
+                <path d="M5 32Q32 5 59 32Q32 59 5 32Z" fill="url(#skin)" stroke="#737c34"/>
+                <path d="M7 31Q32 41 57 31" fill="none" stroke="#050903" stroke-width="4"/>
+                <path d="M8 29Q32 37 56 29M10 41Q32 56 54 41" fill="none" stroke="#a9a15a" stroke-width="1.3"/>
+            </symbol>
+            <symbol id="ornament" viewBox="0 0 320 70">
+                <g fill="none" stroke="currentColor" stroke-width="1.3">
+                    <path d="M0 42H78Q109 42 116 24Q120 11 109 15Q100 21 118 31L137 35M320 42H242Q211 42 204 24Q200 11 211 15Q220 21 202 31L183 35"/>
+                    <path d="M111 40Q160 0 209 40Q160 82 111 40ZM127 40Q160 11 193 40Q160 67 127 40ZM160 3L166 17M160 3L154 17"/>
+                    <path d="M20 42Q57 43 64 54Q70 65 78 55M300 42Q263 43 256 54Q250 65 242 55"/>
+                </g>
+                <path d="M149 40C149 28 157 28 160 35C163 28 171 28 171 40C171 51 163 51 160 45C157 51 149 51 149 40Z" fill="currentColor"/>
+            </symbol>
+        </defs>
+    </svg>
+    <aside class="margem margem-left" aria-hidden="true">
+        <img src="/static/apocrypha-left-poster.png" alt="" class="panel-poster">
+        <canvas id="margem-esq" data-rive-panel data-rive-src="/static/rive/rive-left-panel.riv" data-artboard="Apocrypha Left" data-alignment="right"></canvas>
+    </aside>
+    <aside class="margem margem-right" aria-hidden="true">
+        <img src="/static/apocrypha-right-poster.png" alt="" class="panel-poster">
+        <canvas id="margem-dir" data-rive-panel data-rive-src="/static/rive/rive-right-panel.riv" data-artboard="Apocrypha Right" data-alignment="left"></canvas>
+    </aside>
+    <button id="motion-toggle" class="motion-toggle" type="button" hidden>Ativar animação</button>
+    <main class="container">
+        <div class="page-runes" aria-hidden="true"><img src="/static/arcane-marginalia.svg" alt=""></div>
+        <svg class="crown" aria-hidden="true"><use href="#ornament"/></svg>
+        <header>
+            <p class="chapter-label">APOCRYPHA · ARQUIVO DO CONHECIMENTO PROIBIDO</p>
+            <h1>Skyrim Reading Tracker</h1>
+            <p class="subtitle">Toda página guarda um segredo. Toda leitura deixa uma marca.</p>
+        </header>
+        <p class="stats" aria-live="polite">Você leu <strong data-read-count>{{ read_count }}</strong> de <strong data-total-count>{{ total }}</strong> livros</p>
+        <p id="reading-feedback" class="reading-feedback" role="status" hidden></p>
+        <form method="get" class="search-bar" role="search">
+            <label class="search-field"><span class="search-icon" aria-hidden="true"></span><span class="sr-only">Buscar por título ou autor</span><input type="search" name="q" value="{{ q }}" placeholder="Buscar por título ou autor..."></label>
+            <label class="sr-only" for="campo">Campo de busca</label>
+            <select name="campo" id="campo">
+                <option value="all" {% if campo == 'all' %}selected{% endif %}>Tudo</option>
+                <option value="title" {% if campo == 'title' %}selected{% endif %}>Título</option>
+                <option value="author" {% if campo == 'author' %}selected{% endif %}>Autor</option>
+            </select>
+            <label class="sr-only" for="status">Status da leitura</label>
+            <select name="status" id="status">
+                <option value="" {% if status == '' %}selected{% endif %}>Todos</option>
+                <option value="read" {% if status == 'read' %}selected{% endif %}>Lidos</option>
+                <option value="unread" {% if status == 'unread' %}selected{% endif %}>Não lidos</option>
+            </select>
+            <button class="search-button" type="submit">Buscar</button>
+        </form>
+        <nav class="quick-filters" aria-label="Filtrar livros">
+            {% for value, label in [('', 'Todos'), ('unread', '◉ Não lidos'), ('read', '✓ Já lidos')] %}
+            <a href="/?{{ {'q': q, 'campo': campo, 'status': value}|urlencode }}" class="{% if status == value %}active{% endif %}" {% if status == value %}aria-current="page"{% endif %}>{{ label }}</a>
+            {% endfor %}
+        </nav>
+        <section class="library" aria-label="Livros de Apocrypha" tabindex="0">
+            <ul class="book-list">
+                {% for book in books %}
+                <li class="{% if book.is_read %}read{% endif %}" data-book-id="{{ book.id }}">
+                    <form method="post" action="/toggle/{{ book.id }}">
+                        <button type="submit" class="check" aria-pressed="{{ 'true' if book.is_read else 'false' }}" aria-label="{{ 'Marcar como não lido' if book.is_read else 'Marcar como lido' }}: {{ book.title }}" title="{{ 'Marcar como não lido' if book.is_read else 'Marcar como lido' }}">
+                            <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#eye-{{ 'open' if book.is_read else 'closed' }}"/></svg>
+                            <span class="reading-tooltip" aria-hidden="true">{{ 'Lido · marcar como não lido' if book.is_read else 'Não lido · marcar como lido' }}</span>
+                        </button>
+                    </form>
+                    <div class="book-copy"><span class="title">{{ book.title }}</span>{% if book.author %}<span class="author">{{ book.author }}</span>{% endif %}</div>
+                </li>
+                {% else %}
+                <li class="empty">Nenhum livro encontrado nos arquivos de Apocrypha...</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% if black_books %}
+        <details class="black-books" id="black-books">
+            <summary class="shelf-heading"><span aria-hidden="true">✧</span><span class="shelf-title">Black Books</span><span class="shelf-subtitle">Os sete tomos de Hermaeus Mora</span><span class="shelf-count">{{ black_books|selectattr('is_read')|list|length }} / {{ black_books|length }} lidos</span></summary>
+            <div class="black-book-shelf">
+                {% set sigils = {'Epistolary Acumen': 'quill', 'Filament and Filigree': 'weave', 'The Hidden Twilight': 'eclipse', 'The Sallow Regent': 'crown', 'The Winds of Change': 'wind', 'Untold Legends': 'branches', 'Waking Dreams': 'dream'} %}
+                {% for book in black_books %}
+                {% set short_title = book.title.replace('Black Book: ', '') %}
+                {% set sigil = sigils.get(short_title, 'dream') %}
+                <a class="black-book {% if book.is_read %}read{% endif %}" data-cover="{{ sigil }}" data-book-id="{{ book.id }}" href="/?{{ {'q': book.title, 'campo': 'title', 'status': ''}|urlencode }}" title="Localizar {{ book.title }} na lista">
+                    <span class="book-cover" aria-hidden="true"><span class="cover-number">APOCRYPHA</span><svg class="cover-emblem" viewBox="0 0 80 80"><use href="/static/black-book-sigils.svg#{{ sigil }}"/></svg><svg class="cover-eye" viewBox="0 0 64 64"><use href="#eye-open"/></svg></span>
+                    <span class="black-book-title">{{ book.title.replace('Black Book: ', '') }}</span>
+                    <span class="black-book-state">{{ 'Lido' if book.is_read else 'Não lido' }}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </details>
+        {% endif %}
+        <footer class="footer">
+            <div class="footer-divider"><svg aria-hidden="true"><use href="#ornament"/></svg></div>
+            <p>O que foi lido não pode ser esquecido.</p>
+        </footer>
+        <svg class="bottom-ornament" aria-hidden="true"><use href="#ornament"/></svg>
+    </main>
+</body>
+</html>

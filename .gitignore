@@ -1,0 +1,39 @@
+# Ambiente Python e caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Dados pessoais, credenciais e arquivos locais
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Ferramentas locais e materiais temporários de desenvolvimento
+.agents/
+.codex/
+skills-lock.json
+artifacts/
+rive-left-panel/
+rive-right-panel/
+
+# Arquivos antigos sem uso no site atual (mantidos apenas localmente)
+/schemas.py
+/static/apocrypha-book.png
+/static/hermaeus-eye.png
+/static/margem-esq.webp
+/static/margem-dir.webp
